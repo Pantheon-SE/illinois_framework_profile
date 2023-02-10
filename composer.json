@@ -1,15 +1,161 @@
 {
-    "name": "pantheon-upstreams/upstream-configuration",
-    "type": "project",
-    "repositories": [
-        {
+    "name": "web-illinois/illinois_framework_profile",
+    "type": "drupal-profile",
+    "description": "Drupal 9 installation profile for Illinois.edu",
+    "license": "GPL-2.0-or-later",
+    "repositories": {
+        "drupal": {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
+        },
+        "web-illinois-core": {
+            "type": "vcs",
+            "url": "https://github.com/web-illinois/illinois_framework_core.git"
+        },
+        "web-illinois-theme": {
+            "type": "vcs",
+            "url": "https://github.com/web-illinois/illinois_framework_theme.git"
+        },
+        "assets": {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        },
+        "pantheon-upstreams": {
+            "type": "path",
+            "url": "upstream-configuration"
         }
-    ],
+    },
     "require": {
+        "web-illinois/illinois_framework_core": "3.x-dev",
+        "web-illinois/illinois_framework_theme": "3.x-dev",
+        "drupal/gin": "^3.0@alpha",
+        "drupal/gin_toolbar": "^1.0@beta",
+        
+        "composer/installers": "^1.9",
+        "drupal/core-composer-scaffold": "^9.2",
+        "drupal/core-recommended": "^9.2",
+        "pantheon-systems/drupal-integrations": "^9",
+        "cweagans/composer-patches": "^1.7",
+        "drush/drush": "^11 || ^12"
+    },
+    "require-dev": {
+        "drupal/core-dev": "^9.2"
+    },
+    "config": {
+        "preferred-install": {
+            "drupal/core": "dist"
+        },
+        "sort-packages": false,
+        "allow-plugins": {
+            "composer/installers": true,
+            "cweagans/composer-patches": true,
+            "drupal/core-composer-scaffold": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
     },
     "extra": {
-        "_README": "To make a custom upstream, clone this repository and add any dependencies to be provided by this upstream to this composer.json file. Leave the root-level composer.json file for the exclusive use of each individual site; do not modify it after your custom upstream has been published. See https://pantheon.io/docs/create-custom-upstream for more information."
-    }
+        "drupal-scaffold": {
+            "locations": {
+                "web-root": "web/"
+            },
+            "allowed-packages": [
+                "pantheon-systems/drupal-integrations"
+            ],
+            "file-mapping": {
+                "[project-root]/.gitattributes": false,
+                "[project-root]/.editorconfig": false,
+                "[project-root]/pantheon.upstream.yml": false,
+                "[web-root]/example.gitignore": false,
+                "[web-root]/.csslintrc": false,
+                "[web-root]/modules/README.txt": false,
+                "[web-root]/profiles/README.txt": false,
+                "[web-root]/sites/README.txt": false,
+                "[web-root]/themes/README.txt": false,
+                "[web-root]/INSTALL.txt": false,
+                "[web-root]/robots.txt": false,
+                "[web-root]/web.config": false
+            }
+        },
+        "autoload": {
+            "classmap": [
+                "upstream-configuration/scripts/ComposerScripts.php"
+            ]
+        },
+        "scripts": {
+            "pre-update-cmd": [
+                "DrupalComposerManaged\\ComposerScripts::preUpdate"
+            ],
+            "upstream-require": [
+                "DrupalComposerManaged\\ComposerScripts::upstreamRequire"
+            ]
+        },
+        "scripts-descriptions": {
+            "upstream-require": "Add a dependency to an upstream. See https://pantheon.io/docs/create-custom-upstream for information on creating custom upstreams."
+        },
+        "enable-patching": true,
+        "composer-exit-on-patch-failure": true,
+        "installer-paths": {
+            "web/core": [
+                "type:drupal-core"
+            ],
+            "web/libraries/{$name}": [
+                "type:drupal-library",
+                "type:bower-asset",
+                "type:npm-asset"
+            ],
+            "web/modules/contrib/{$name}": [
+                "type:drupal-module"
+            ],
+            "web/profiles/contrib/{$name}": [
+                "type:drupal-profile"
+            ],
+            "web/themes/contrib/{$name}": [
+                "type:drupal-theme"
+            ],
+            "web/modules/custom/{$name}": [
+                "type:drupal-custom-module"
+            ],
+            "web/profiles/custom/{$name}": [
+                "type:drupal-custom-profile"
+            ],
+            "web/themes/custom/{$name}": [
+                "type:drupal-custom-theme"
+            ],
+            "web/private/scripts/quicksilver/{$name}/": [
+                "type:quicksilver-script"
+            ]
+        },
+        "installer-types": [
+            "bower-asset",
+            "npm-asset"
+        ],
+        "patchLevel": {
+            "drupal/core": "-p2"
+        },
+        "patches": {
+            "drupal/core": {
+                "2869592 - Disabled update module shouldn't produce a status report warning": "https://www.drupal.org/files/issues/2020-02-07/2869592-remove-update-warning-34.patch"
+            }
+        }
+    },
+    
+
+    "autoload": {
+        "classmap": [
+            "upstream-configuration/scripts/ComposerScripts.php"
+        ]
+    },
+    "scripts": {
+        "pre-update-cmd": [
+            "DrupalComposerManaged\\ComposerScripts::preUpdate"
+        ],
+        "upstream-require": [
+            "DrupalComposerManaged\\ComposerScripts::upstreamRequire"
+        ]
+    },
+    "scripts-descriptions": {
+        "upstream-require": "Add a dependency to an upstream. See https://pantheon.io/docs/create-custom-upstream for information on creating custom upstreams."
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
