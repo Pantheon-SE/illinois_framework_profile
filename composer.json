@@ -1,99 +1,15 @@
 {
-    "name": "web-illinois/illinois_framework_profile",
-    "type": "drupal-profile",
-    "description": "",
-    "license": "GPL-2.0-or-later",
-    "require": {
-        "ext-dom": "*",
-        "web-illinois/illinois_framework_core": "3.x-dev",
-        "web-illinois/illinois_framework_theme": "3.x-dev",
-        "cweagans/composer-patches": "^1.7",
-        "drupal/core-recommended": "^9.2",
-        "drupal/gin": "^3.0@alpha",
-        "drupal/gin_toolbar": "^1.0@beta",
-        "drush/drush": "^11.0"
-    },
-    "require-dev": {
-        "drupal/core-composer-scaffold": "*",
-        "drupal/core-dev": "*",
-        "oomphinc/composer-installers-extender": "^2.0"
-    },
-    "config": {
-        "preferred-install": {
-            "drupal/core": "dist"
-        },
-        "sort-packages": false
-    },
-    "extra": {
-        "drupal-scaffold": {
-            "locations": {
-                "web-root": "docroot/"
-            },
-            "file-mapping": {
-                "[project-root]/.gitattributes": false,
-                "[project-root]/.editorconfig": false,
-                "[web-root]/example.gitignore": false,
-                "[web-root]/.csslintrc": false,
-                "[web-root]/modules/README.txt": false,
-                "[web-root]/profiles/README.txt": false,
-                "[web-root]/sites/README.txt": false,
-                "[web-root]/themes/README.txt": false,
-                "[web-root]/INSTALL.txt": false,
-                "[web-root]/robots.txt": false,
-                "[web-root]/web.config": false
-            }
-        },
-        "enable-patching": true,
-        "installer-paths": {
-            "docroot/core": [
-                "type:drupal-core"
-            ],
-            "docroot/libraries/{$name}": [
-                "type:drupal-library",
-                "type:bower-asset",
-                "type:npm-asset"
-            ],
-            "docroot/modules/contrib/{$name}": [
-                "type:drupal-module"
-            ],
-            "docroot/profiles/contrib/{$name}": [
-                "type:drupal-profile"
-            ],
-            "docroot/themes/contrib/{$name}": [
-                "type:drupal-theme"
-            ]
-        },
-        "installer-types": [
-            "bower-asset",
-            "npm-asset"
-        ],
-        "patchLevel": {
-            "drupal/core": "-p2"
-        },
-        "patches": {
-            "drupal/core": {
-                "2869592 - Disabled update module shouldn't produce a status report warning": "https://www.drupal.org/files/issues/2020-02-07/2869592-remove-update-warning-34.patch"
-            }
-        }
-    },
-    "repositories": {
-        "drupal": {
+    "name": "pantheon-upstreams/upstream-configuration",
+    "type": "project",
+    "repositories": [
+        {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
-        },
-        "web-illinois-core": {
-            "type": "vcs",
-            "url": "https://github.com/web-illinois/illinois_framework_core.git"
-        },
-        "web-illinois-theme": {
-            "type": "vcs",
-            "url": "https://github.com/web-illinois/illinois_framework_theme.git"
-        },
-        "assets": {
-            "type": "composer",
-            "url": "https://asset-packagist.org"
         }
+    ],
+    "require": {
     },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    "extra": {
+        "_README": "To make a custom upstream, clone this repository and add any dependencies to be provided by this upstream to this composer.json file. Leave the root-level composer.json file for the exclusive use of each individual site; do not modify it after your custom upstream has been published. See https://pantheon.io/docs/create-custom-upstream for more information."
+    }
 }
